@@ -26,24 +26,30 @@ unsigned int adjMatrix[MAX_ADJ_NACOS];
 unsigned int subset[MAX_V_NACOS];
 unsigned int R[MAX_ADJ_NACOS];
 
-//Definição estrutura No
+//Definição da estrutura No
 typedef struct No {
     unsigned int ponteiro;
     struct No *proximo;
 } No;
+
+
+
 //Função inicializar o No (partida)
-No* partida(unsigned int *R) {
+No* partida(unsigned int *R) 
+{
     No* novoNo = (No*)malloc(sizeof(No));
     novoNo->ponteiro = *R;
     novoNo->proximo = NULL;
     return novoNo;
 }
 //Função chegada
-bool chegada(No* r) {
+bool chegada(No* r) 
+{
     return r == NULL;
 }
 //Função retirar
-void retirar(No** r) {
+void retirar(No** r) 
+{
     if (*r != NULL) {
         No* temp = *r;
         *r = (*r)->proximo;
@@ -51,7 +57,8 @@ void retirar(No** r) {
     }
 }
 //Função subconj
-bool subconj(unsigned int R[MAX_ADJ_NACOS], unsigned int subset[MAX_V_NACOS]) {
+bool subconj(unsigned int R[MAX_ADJ_NACOS], unsigned int subset[MAX_V_NACOS]) 
+{
     for (int i = 0; i < MAX_V_NACOS; i++) {
         if ((R[i] & subset[i]) != subset[i]) {
             return false; // O subconjunto não é uma clique
@@ -60,7 +67,8 @@ bool subconj(unsigned int R[MAX_ADJ_NACOS], unsigned int subset[MAX_V_NACOS]) {
     return true; // O subconjunto é uma clique
 }
 //Função vizinhos
-void vizinhos(unsigned int adjMatrix[MAX_ADJ_NACOS], int vertex, unsigned int* neighbors) {
+void vizinhos(unsigned int adjMatrix[MAX_ADJ_NACOS], int vertex, unsigned int* neighbors) 
+{
     int idx = IDX_VIZ(vertex);
     unsigned int* row = adjMatrix + idx;
     
@@ -68,13 +76,18 @@ void vizinhos(unsigned int adjMatrix[MAX_ADJ_NACOS], int vertex, unsigned int* n
         neighbors[i] = row[i];
     }
 }
+
+
 //Função avancar
-No* avancar(No* r) {
+No* avancar(No* r) 
+{
     return r->proximo;
 }
 
+
 // Função para verificar se um subconjunto define uma clique no grafo
-bool verificaClique(int numVertices, unsigned int adjMatrix[MAX_ADJ_NACOS], unsigned int subset[MAX_V_NACOS]) {
+bool verificaClique(int numVertices, unsigned int adjMatrix[MAX_ADJ_NACOS], unsigned int subset[MAX_V_NACOS]) 
+{
     memcpy(R, adjMatrix, N_NACOS(numVertices));
     No * r = partida(&R);
     while (!chegada(r)) {
@@ -87,7 +100,8 @@ bool verificaClique(int numVertices, unsigned int adjMatrix[MAX_ADJ_NACOS], unsi
 }
 
 // Função para medir o tempo de execução médio da função verificaClique
-double medirTempoExecucao(int numVertices, unsigned int adjMatrix[MAX_ADJ_NACOS], unsigned int subset[MAX_V_NACOS], int repeticoes) {
+double medirTempoExecucao(int numVertices, unsigned int adjMatrix[MAX_ADJ_NACOS], unsigned int subset[MAX_V_NACOS], int repeticoes) 
+{
     clock_t inicio, fim;
 
     inicio = clock();
