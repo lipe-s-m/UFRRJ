@@ -9,7 +9,7 @@ public class Bicicleta
 	//Metodos
 	void acelerar(int incremento)
 	{
-		System.out.println("vrum vruuuummm");
+		System.out.println("vrum vrummm");
 	}
 	
 
