@@ -1,0 +1,2 @@
+module classesp2 {
+}
